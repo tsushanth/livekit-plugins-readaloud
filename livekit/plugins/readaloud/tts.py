@@ -47,9 +47,9 @@ class TTS(tts.TTS):
     Args:
         api_key: ReadAloud key (``rtts_...``); falls back to env ``READALOUD_API_KEY``.
         base_url: API origin (default ``https://api.readaloudai.org``).
-        voice: voice id (default ``"default"``; ``af_heart``-style Kokoro ids or ``custom:<id>``).
+        voice: voice id (default ``"default"``; an id from ``GET /v1/voices`` or ``custom:<id>``).
         speed: 0.5-4.0.
-        engine: ``"piper"`` (default) or ``"kokoro"``.
+        engine: ``"live"`` (default, the low-latency tier) or ``"studio"`` (the higher-priced narration tier).
         sample_rate: ``24000`` (default), ``16000`` (served via the ElevenLabs-compatible endpoint) or ``8000``
             (telephony; native 8 kHz render). LiveKit frames are always PCM16; this is the rate declared to the framework.
         http_session: optional shared ``aiohttp.ClientSession`` (default: LiveKit's job http session, else a private one).
@@ -58,7 +58,7 @@ class TTS(tts.TTS):
     """
 
     def __init__(self, *, api_key: Optional[str] = None, base_url: str = DEFAULT_BASE_URL, voice: str = "default",
-                 speed: float = 1.0, engine: str = "piper", sample_rate: int = 24000,
+                 speed: float = 1.0, engine: str = "live", sample_rate: int = 24000,
                  http_session: Optional[aiohttp.ClientSession] = None, max_retries: int = 2,
                  sentence_tokenizer: Optional[tokenize.SentenceTokenizer] = None) -> None:
         if sample_rate not in (8000, 16000, 24000):

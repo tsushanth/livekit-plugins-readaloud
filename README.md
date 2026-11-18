@@ -29,9 +29,9 @@ session = AgentSession(
 )
 ```
 
-`readaloud.TTS(api_key=None, base_url="https://api.readaloudai.org", voice="default", speed=1.0, engine="piper",
+`readaloud.TTS(api_key=None, base_url="https://api.readaloudai.org", voice="default", speed=1.0, engine="live",
 sample_rate=24000, max_retries=2)`. `api_key` falls back to the `READALOUD_API_KEY` environment variable. `engine` is
-`"piper"` (default) or `"kokoro"`. `synthesize()` returns a `ChunkedStream`; `stream()` returns a `SynthesizeStream`
+`"live"` (default, the low-latency tier) or `"studio"` (the narration tier). `synthesize()` returns a `ChunkedStream`; `stream()` returns a `SynthesizeStream`
 that splits LLM tokens into sentences and synthesizes each with its own streaming request.
 
 ## Running the example

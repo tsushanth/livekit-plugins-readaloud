@@ -37,7 +37,7 @@ def test_is_a_livekit_tts_with_declared_capabilities():
     t = readaloud.TTS(api_key="k")
     assert isinstance(t, lk_tts.TTS)
     assert t.capabilities.streaming and not t.capabilities.aligned_transcript
-    assert (t.sample_rate, t.num_channels, t.provider, t.model) == (24000, 1, "ReadAloud", "piper")
+    assert (t.sample_rate, t.num_channels, t.provider, t.model) == (24000, 1, "ReadAloud", "live")
 
 
 async def test_synthesize_chunked_stream(server, session):
@@ -47,7 +47,7 @@ async def test_synthesize_chunked_stream(server, session):
     assert frame.sample_rate == 24000 and frame.num_channels == 1
     assert frame.duration > 0.1
     r = server.requests[0]
-    assert r["native"] and r["body"]["format"] == "pcm_24000" and r["body"]["engine"] == "piper"
+    assert r["native"] and r["body"]["format"] == "pcm_24000" and r["body"]["engine"] == "live"
 
 
 @pytest.mark.parametrize("rate,fmt,native", [(8000, "pcm_8000", True), (16000, "pcm_16000", False)])
